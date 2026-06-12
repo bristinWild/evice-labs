@@ -126,9 +126,8 @@ export default function App() {
       <div className="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none" />
       <div className="absolute inset-0 bg-dot-pattern opacity-50 pointer-events-none" />
 
-      {/* 2. Sticky Navigation */}
-      <header className="sticky top-0 z-40 w-full border-b border-dark-border bg-black backdrop-blur-md select-none">
-        <div className="max-w-7xl mx-auto border-x border-dark-border bg-transparent px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      {/* 2. Fixed Navigation */}
+      <header className="fixed top-0 left-0 right-0 z-50 max-w-7xl mx-auto w-full border-x border-b border-dark-border bg-black px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between select-none">
 
           {/* Logo brand */}
           <div
@@ -192,7 +191,6 @@ export default function App() {
           >
             {mobMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
-        </div>
 
         {/* Mobile slide-down menu */}
         {mobMenuOpen && (
