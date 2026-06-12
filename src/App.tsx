@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type ReactNode } from 'react';
 import { motion, useInView } from 'motion/react';
 import {
   Terminal, ShieldCheck, Mail, ArrowUpRight, Cpu,
@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 // Sub-components
 import NetworkBackground from './components/NetworkBackground';
 import PortfolioGrid from './components/PortfolioGrid';
-import ComparisonTable from './components/ComparisonTable';
 import TeamSection from './components/TeamSection';
 import BookingModal from './components/BookingModal';
 
@@ -45,6 +44,15 @@ function CountUp({ value, duration = 1.0 }: { value: number; duration?: number }
   }, [isInView, value]);
 
   return <span ref={ref}>{count}</span>;
+}
+
+/* Section eyebrow label */
+function Eyebrow({ children }: { children: ReactNode }) {
+  return (
+    <span className="text-[10px] font-mono text-black uppercase tracking-widest font-medium block">
+      {children}
+    </span>
+  );
 }
 
 export default function App() {
@@ -129,68 +137,67 @@ export default function App() {
       {/* 2. Fixed Navigation */}
       <header className="fixed top-0 left-0 right-0 z-50 max-w-7xl mx-auto w-full border-x border-b border-dark-border bg-black px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between select-none">
 
-          {/* Logo brand */}
-          <div
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center cursor-pointer group"
-          >
-            <img
-              src="/EviceLogo.png"
-              alt="Evice Labs Logo"
-              className="h-6 w-auto invert transition-transform duration-300 group-hover:scale-105"
-            />
-          </div>
+        {/* Logo brand */}
+        <div
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="flex items-center cursor-pointer group"
+        >
+          <img
+            src="/EviceLogo.png"
+            alt="Evice Labs Logo"
+            className="h-6 w-auto invert transition-transform duration-200 group-hover:scale-105"
+          />
+        </div>
 
-          {/* Desktop link Navs */}
-          <nav className="hidden md:flex items-center space-x-8 font-mono text-xs">
-            {[
-              { id: 'about', label: 'About' },
-              { id: 'capabilities', label: 'Capabilities' },
-              { id: 'work', label: 'Selected Work' },
-              { id: 'team', label: 'Team' },
-            ].map((link) => (
-              <button
-                key={link.id}
-                id={`nav-link-${link.id}`}
-                onClick={() => scrollToSection(link.id)}
-                className={`group relative flex items-center space-x-1 transition-colors cursor-pointer pb-1 ${
-                  activeSection === link.id ? 'text-gray-400' : 'text-white hover:text-gray-400'
-                } after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:bg-gray-400 after:transition-transform after:duration-300 after:origin-left after:scale-x-0 group-hover:after:scale-x-100`}
-              >
-                <ArrowUpRight className="w-3 h-3" />
-                <span>{link.label}</span>
-              </button>
-            ))}
-            <Link
-              to="/founding-team"
-              onClick={() => setMobMenuOpen(false)}
-              className="group relative flex items-center space-x-1 transition-colors cursor-pointer pb-1 text-white hover:text-gray-400 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:bg-gray-400 after:transition-transform after:duration-300 after:origin-left after:scale-x-0 group-hover:after:scale-x-100"
+        {/* Desktop link Navs */}
+        <nav className="hidden md:flex items-center space-x-8 font-mono text-xs">
+          {[
+            { id: 'about', label: 'About' },
+            { id: 'capabilities', label: 'Capabilities' },
+            { id: 'work', label: 'Selected Work' },
+            { id: 'team', label: 'Team' },
+          ].map((link) => (
+            <button
+              key={link.id}
+              id={`nav-link-${link.id}`}
+              onClick={() => scrollToSection(link.id)}
+              className={`group relative flex items-center space-x-1 transition-colors cursor-pointer pb-1 ${activeSection === link.id ? 'text-gray-400' : 'text-white hover:text-gray-400'
+                } after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:bg-gray-400 after:transition-transform after:duration-200 after:origin-left after:scale-x-0 group-hover:after:scale-x-100`}
             >
               <ArrowUpRight className="w-3 h-3" />
-              <span>Join Foundation</span>
-            </Link>
-          </nav>
-
-          {/* CTA Book Call Button (desktop) */}
-          <div className="hidden md:block">
-            <button
-              id="cta-nav-book"
-              onClick={() => setIsBookingOpen(true)}
-              className="px-4 py-1.5 bg-white border border-transparent hover:bg-gray-200 text-[11px] font-mono font-medium text-black shadow-xs transition-all duration-350 active:scale-[0.98]"
-            >
-              Book a call
+              <span>{link.label}</span>
             </button>
-          </div>
-
-          {/* Toggle Mobile Menu Button */}
-          <button
-            id="mobile-menu-toggle"
-            onClick={() => setMobMenuOpen(!mobMenuOpen)}
-            className="p-1.5 border border-white/20 text-white hover:bg-white/10 md:hidden transition-colors rounded"
-            title="Toggle Menu"
+          ))}
+          <Link
+            to="/founding-team"
+            onClick={() => setMobMenuOpen(false)}
+            className="group relative flex items-center space-x-1 transition-colors cursor-pointer pb-1 text-white hover:text-gray-400 after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:bg-gray-400 after:transition-transform after:duration-200 after:origin-left after:scale-x-0 group-hover:after:scale-x-100"
           >
-            {mobMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            <ArrowUpRight className="w-3 h-3" />
+            <span>Join Foundation</span>
+          </Link>
+        </nav>
+
+        {/* CTA Book Call Button (desktop) */}
+        <div className="hidden md:block">
+          <button
+            id="cta-nav-book"
+            onClick={() => setIsBookingOpen(true)}
+            className="px-4 py-1.5 bg-white border border-transparent hover:bg-gray-200 text-[11px] font-mono font-medium text-black shadow-xs transition-all duration-200 active:scale-[0.98]"
+          >
+            Book a call
           </button>
+        </div>
+
+        {/* Toggle Mobile Menu Button */}
+        <button
+          id="mobile-menu-toggle"
+          onClick={() => setMobMenuOpen(!mobMenuOpen)}
+          className="p-1.5 border border-white/20 text-white hover:bg-white/10 md:hidden transition-colors rounded"
+          title="Toggle Menu"
+        >
+          {mobMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
 
         {/* Mobile slide-down menu */}
         {mobMenuOpen && (
@@ -205,9 +212,8 @@ export default function App() {
                 key={link.id}
                 id={`mob-link-${link.id}`}
                 onClick={() => scrollToSection(link.id)}
-                className={`flex items-center space-x-2 w-full text-left py-2 border-b border-white/10 pb-1 ${
-                  activeSection === link.id ? 'text-gray-400' : 'text-white hover:text-gray-400'
-                }`}
+                className={`flex items-center space-x-2 w-full text-left py-2 border-b border-white/10 pb-1 ${activeSection === link.id ? 'text-gray-400' : 'text-white hover:text-gray-400'
+                  }`}
               >
                 <ArrowUpRight className="w-3 h-3" />
                 <span>{link.label}</span>
@@ -238,8 +244,24 @@ export default function App() {
       {/* 3. Hero Section */}
       <section className="w-full border-b border-dark-border select-none bg-blue-100">
         <div className="relative min-h-[82vh] flex flex-col items-center justify-center overflow-hidden z-10 max-w-7xl mx-auto border-x border-dark-border bg-[#F9F6EE] px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+          {/* Scroll Down & Status Group */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-20">
+            {/* Arrow Scroller Down */}
+            <div className="hidden lg:block animate-bounce text-black">
+              <ArrowDown className="w-5 h-5" />
+            </div>
+
+            {/* Status Indicator */}
+            <div className="inline-flex items-center space-x-2 text-[10px] font-mono text-black uppercase tracking-widest">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full bg-brand-green opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 bg-brand-green"></span>
+              </span>
+              <span>Currently taking 1 new engagement</span>
+            </div>
+          </div>
           <NetworkBackground />
-          <div className="w-full">
+          <div className="relative z-10 w-full">
 
             {/* Eyebrow Label */}
             <div className="inline-flex items-center space-x-2 px-3 py-1 -full text-[10px] uppercase font-mono tracking-widest shadow-xl shadow-brand/5">
@@ -267,34 +289,19 @@ export default function App() {
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button
-                id="hero-cta-primary"
-                onClick={() => setIsBookingOpen(true)}
-                className="w-full sm:w-auto px-7 py-3 -lg bg-brand hover:bg-brand/90 hover:shadow-lg hover:shadow-brand/20 text-black font-mono text-xs uppercase tracking-wider font-semibold shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer"
+              <a
+                href="/founding-team"
+                className="w-full sm:w-auto px-7 py-3 bg-brand hover:bg-brand/90 hover:shadow-lg hover:shadow-brand/20 text-black font-mono text-xs uppercase tracking-wider shadow-md active:scale-[0.98] transition-all duration-200 cursor-pointer"
               >
                 Build with us
-              </button>
+              </a>
               <button
                 id="hero-cta-secondary"
                 onClick={() => scrollToSection('work')}
-                className="w-full sm:w-auto px-7 py-3 -lg bg-dark-bg border border-dark-border hover:border-gray-400/40 text-black hover:text-black font-mono text-xs uppercase tracking-wider active:scale-[0.98] transition-all duration-300 cursor-pointer"
+                className="w-full sm:w-auto px-7 py-3 -lg bg-white border border-black hover:border-gray-400 text-black hover:text-gray-400 font-mono text-xs uppercase tracking-wider active:scale-[0.98] transition-all duration-200 cursor-pointer"
               >
                 See our work
               </button>
-            </div>
-
-            {/* Status Indicator */}
-            <div className="mt-8 inline-flex items-center space-x-2 text-[10px] font-mono text-black uppercase tracking-widest">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full -full bg-brand-green opacity-75"></span>
-                <span className="relative inline-flex -full h-2 w-2 bg-brand-green"></span>
-              </span>
-              <span>Currently taking 1 new engagement</span>
-            </div>
-
-            {/* Arrow Scroller Down */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden lg:block animate-bounce text-black">
-              <ArrowDown className="w-5 h-5 text-black" />
             </div>
           </div>
         </div>
@@ -319,9 +326,7 @@ export default function App() {
 
             {/* About Text */}
             <div className="lg:col-span-3 space-y-5">
-              <span className="text-[10px] font-mono uppercase tracking-widest block font-medium">
-              // Who we are
-              </span>
+              <Eyebrow>// Who are we</Eyebrow>
               <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-black tracking-tight">
                 We don't dabble in Logos. We live in it.
               </h2>
@@ -340,7 +345,7 @@ export default function App() {
               ].map((stat) => (
                 <div
                   key={stat.id}
-                  className="p-5 -xl border border-dark-border bg-dark-card flex flex-col justify-between hover:border-gray-400/40 transition-colors duration-300"
+                  className="p-5 -xl border border-dark-border bg-dark-card flex flex-col justify-between hover:border-gray-400/40 transition-colors duration-200"
                 >
                   <span className="text-3xl sm:text-4xl font-display font-black text-brand tracking-tight">
                     <CountUp value={stat.val} />{stat.suffix || ''}
@@ -361,9 +366,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto border-x border-dark-border bg-[#F9F6EE] px-4 sm:px-6 lg:px-8 py-20 md:py-28">
 
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-[10px] font-mono uppercase tracking-widest font-medium">
-              // Capabilities
-            </span>
+            <Eyebrow>// Capabilities</Eyebrow>
             <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-black mt-3 tracking-tight">
               End-to-end Logos development.
             </h2>
@@ -389,9 +392,7 @@ export default function App() {
       <section id="work" className="w-full border-b border-dark-border bg-green-100">
         <div className="max-w-7xl mx-auto border-x border-dark-border bg-[#F9F6EE] px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-[10px] font-mono uppercase tracking-widest font-medium">
-              // Selected work
-            </span>
+            <Eyebrow>// Selected work</Eyebrow>
             <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-black mt-3 tracking-tight">
               Shipped, reviewed, merged.
             </h2>
@@ -416,9 +417,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto border-x border-dark-border bg-[#F9F6EE] px-4 sm:px-6 lg:px-8 py-20 md:py-28">
 
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-[10px] font-mono uppercase tracking-widest font-medium">
-              // The team
-            </span>
+            <Eyebrow>// The team</Eyebrow>
             <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-black mt-3 tracking-tight">
               Expert builders. One unified team.
             </h2>
@@ -428,7 +427,7 @@ export default function App() {
       </section>
 
       {/* 12. Final CTA */}
-      <section className="relative w-full overflow-hidden border-b border-dark-border text-center bg-yellow-100">
+      <section className="relative w-full overflow-hidden text-center bg-yellow-100">
         <div className="relative z-10 max-w-7xl mx-auto border-x border-dark-border bg-[#F9F6EE] px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col items-center">
           {/* Subtle dot backdrop constraint */}
           <div className="absolute inset-0 bg-dot-pattern opacity-10 pointer-events-none" />
@@ -445,7 +444,7 @@ export default function App() {
               <button
                 id="cta-bottom-project"
                 onClick={() => setIsBookingOpen(true)}
-                className="px-8 py-3.5 -lg bg-brand hover:bg-brand/90 hover:shadow-lg hover:shadow-brand/20 font-mono text-xs uppercase tracking-widest text-black shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer"
+                className="px-8 py-3.5 -lg bg-brand hover:bg-brand/90 hover:shadow-lg hover:shadow-brand/20 font-mono text-xs uppercase tracking-widest text-black shadow-md active:scale-[0.98] transition-all duration-200 cursor-pointer"
               >
                 Start a project
               </button>
@@ -455,8 +454,8 @@ export default function App() {
       </section>
 
       {/* 13. Footer */}
-      <footer className="w-full bg-blue-200 text-black font-sans select-none border-t border-dark-border/40">
-        <div className="max-w-7xl mx-auto border-x border-dark-border bg-[#F3EFE0] px-4 sm:px-6 lg:px-8 py-12 md:py-16 flex flex-col md:flex-row items-center justify-between gap-6">
+      <footer className="w-full bg-yellow-100 text-black font-sans select-none ">
+        <div className="max-w-7xl mx-auto border-x border-dark-border bg-black px-4 sm:px-6 lg:px-8 py-12 md:py-16 flex flex-col md:flex-row items-center justify-between gap-6">
 
           {/* Logo brand */}
           <div
@@ -466,33 +465,33 @@ export default function App() {
             <img
               src="/EviceLogo.png"
               alt="Evice Labs Logo"
-              className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
+              className="h-6 w-auto invert transition-transform duration-200 group-hover:scale-105"
             />
           </div>
 
           {/* Core coordinate anchors */}
-          <div className="flex flex-wrap justify-center gap-6 font-mono text-xs text-black">
+          <div className="flex flex-wrap justify-center gap-6 font-mono text-xs text-gray-400">
             <a
               href="https://github.com/Evice-labs"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-black transition-colors flex items-center space-x-1"
+              className="text-white hover:text-gray-400 transition-colors flex items-center space-x-1"
             >
               <span>GitHub</span>
-              <ArrowUpRight className="w-3 h-3 text-black" />
+              <ArrowUpRight className="w-3 h-3" />
             </a>
             <a
               href="https://x.com/Evice_labs"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-black transition-colors flex items-center space-x-1"
+              className="text-white hover:text-gray-400 transition-colors flex items-center space-x-1"
             >
               <span>X / Twitter</span>
-              <ArrowUpRight className="w-3 h-3 text-black" />
+              <ArrowUpRight className="w-3 h-3" />
             </a>
             <a
               href="mailto:hello@Evice.dev"
-              className="hover:text-black transition-colors flex items-center space-x-1"
+              className="text-white hover:text-gray-400 transition-colors flex items-center space-x-1"
             >
               <span>Email</span>
               <Mail className="w-3.5 h-3.5" />
@@ -500,7 +499,7 @@ export default function App() {
           </div>
 
           {/* Copy statement */}
-          <div className="text-xs font-mono text-black">
+          <div className="text-xs font-mono text-white">
             © 2026 Evice Labs &middot; SECURE SYSTEM L1S
           </div>
 
