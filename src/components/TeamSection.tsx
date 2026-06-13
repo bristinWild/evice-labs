@@ -15,7 +15,7 @@ const founders: TeamMember[] = [
     bio: '19 years of professional software development experience, with recent focus on Logos ecosystem infrastructure and cryptographic protocol engineering.',
     github: 'https://github.com/mmlado',
     twitter: '',
-    avatarSeed: '/MladenProfile.jpeg',
+    avatarSeed: `${import.meta.env.BASE_URL}MladenProfile.jpeg`,
   },
   {
     id: 'Syafiq',
@@ -24,7 +24,7 @@ const founders: TeamMember[] = [
     bio: 'Hands-on experience building privacy-preserving cryptographic systems natively on the Logos Execution Zone. Recent completion of LP-0016 demonstrates end-to-end capability across the full Logos stack.',
     github: 'https://github.com/syafiqeil',
     twitter: '',
-    avatarSeed: '/SyafiqProfile.png',
+    avatarSeed: `${import.meta.env.BASE_URL}SyafiqProfile.png`,
   },
   {
     id: 'Bristin',
@@ -33,7 +33,7 @@ const founders: TeamMember[] = [
     bio: 'Hands-on experience building core LEZ infrastructure primitives. Winner of LP-0012 and deliverer of LP-0013, covering the exact event system and token authority model that this RFP depends on.',
     github: 'https://github.com/bristinWild',
     twitter: '',
-    avatarSeed: '/BristinProfile.jpeg',
+    avatarSeed: `${import.meta.env.BASE_URL}BristinProfile.jpeg`,
   }
 ];
 

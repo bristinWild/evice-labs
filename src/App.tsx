@@ -143,7 +143,7 @@ export default function App() {
           className="flex items-center cursor-pointer group"
         >
           <img
-            src="/EviceLogo.png"
+            src={`${import.meta.env.BASE_URL}EviceLogo.png`}
             alt="Evice Labs Logo"
             className="h-6 w-auto invert transition-transform duration-200 group-hover:scale-105"
           />
@@ -463,7 +463,7 @@ export default function App() {
             className="flex items-center cursor-pointer group"
           >
             <img
-              src="/EviceLogo.png"
+              src={`${import.meta.env.BASE_URL}EviceLogo.png`}
               alt="Evice Labs Logo"
               className="h-6 w-auto invert transition-transform duration-200 group-hover:scale-105"
             />
